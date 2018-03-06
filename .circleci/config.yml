@@ -9,5 +9,5 @@ jobs:
           name: Greeting
           command: echo Check repo for new code.
       - run:
-          name: getting new code from repo and rebuild containers
-          command: git clone
+          name: show env and install git
+          command: env; apt -y install git
