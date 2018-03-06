@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: Greeting
-          command: echo Hello, world.
+          command: echo Check repo for new code.
       - run:
-          name: Print the Current Time
-          command: date
+          name: getting new code from repo and rebuild containers
+          command: git clone
