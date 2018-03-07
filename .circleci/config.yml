@@ -15,5 +15,5 @@ jobs:
 
       - run:
           name: show env and install git
-          command: apt update; apt -y install ssh; ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 'cd /data; mkdir ffw-'$CIRCLE_BUILD_NUM'; git -C ffw-'$CIRCLE_BUILD_NUM' clone https://github.com/pulakivasilaki/ffw.git; pwd; cd /data/ffw-'$CIRCLE_BUILD_NUM'/ffw/; ./rebuild '$CIRCLE_BUILD_NUM
+          command: apt update; apt -y install ssh; ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 'cd /data; git clone https://github.com/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'.git '$CIRCLE_PROJECT_REPONAME'-'$CIRCLE_BUILD_NUM'; cd '$CIRCLE_PROJECT_REPONAME'-'$CIRCLE_BUILD_NUM'; ./rebuild '$CIRCLE_PROJECT_REPONAME' '$CIRCLE_PROJECT_USERNAME' '$CIRCLE_BUILD_NUM' '$CIRCLE_PREVIOUS_BUILD_NUM
 

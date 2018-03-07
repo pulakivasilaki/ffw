@@ -1,4 +1,18 @@
 #!/bin/bash
-revision=$1
-docker-compose up -d
-# --project-name ffw-$revision
+reponame=$1
+username=$2
+rev=$3
+prev_rev=$4
+
+git clone https://github.com/$username/$reponame.git $reponame-$rev || exit 1
+
+if [ -d "../$reponame-$prev_rev" ]; then
+    cd ../$reponame-$prev_rev
+    docker-compose stop
+    cd ./$reponame-$rev
+    docker-compose up -d
+else
+    #cd ./$reponame-$rev
+    docker-compose up -d
+fi
+
