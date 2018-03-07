@@ -4,9 +4,14 @@ username=$2
 rev=$3
 prev_rev=$4
 
-#git clone https://github.com/$username/$reponame.git $reponame-$rev || exit 1
-
 if [ -d "../$reponame-$prev_rev" ]; then
+    containers=`docker ps -a | grep $reponame$prev_rev | awk '{print $1}'`
+    for container in $containers
+    do
+	docker commit -p $container backup-$reponame-$prev_rev-$container
+	docker save -o /data/backup/backup-$reponame-$prev_rev-$container.tar backup-$reponame-$prev_rev-$container
+    done
+
     cd ../$reponame-$prev_rev
     docker-compose stop
     cd ./$reponame-$rev
