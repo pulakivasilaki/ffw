@@ -15,7 +15,7 @@ jobs:
 
       - run:
           name: show env and install git
-          command: mkdir ~/.ssh; env; apt update; apt -y install git; ls -la ~/.ssh/
+          command: env; apt update; apt -y install git; ls -la ~/.ssh/
 
 
 
