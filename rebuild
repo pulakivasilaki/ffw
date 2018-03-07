@@ -5,11 +5,13 @@ rev=$3
 prev_rev=$4
 
 if [ -d "../$reponame-$prev_rev" ]; then
-    containers=`docker ps -a | grep $reponame$prev_rev | awk '{print $1}'`
+    containers=`docker ps -a | grep $reponame$prev_rev | awk '{print $1";"$NF}'`
     for container in $containers
     do
-	docker commit -p $container backup-$reponame-$prev_rev-$container
-	docker save -o /data/backup/backup-$reponame-$prev_rev-$container.tar backup-$reponame-$prev_rev-$container
+	id=`echo $container | awk -F\; '{print $1}'`
+	name=`echo $container | awk -F\; '{print $2}'`
+	docker commit -p $id backup-$reponame-$prev_rev-$name
+	docker save -o /data/backup/backup-$reponame-$prev_rev-$name.tar backup-$reponame-$prev_rev-$name
     done
     cd ../$reponame-$prev_rev
     docker-compose stop
