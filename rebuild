@@ -1,0 +1,4 @@
+#!/bin/bash
+revision=$1
+docker-compose up -d
+# --project-name ffw-$revision
