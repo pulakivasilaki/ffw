@@ -4,7 +4,7 @@ username=$2
 rev=$3
 prev_rev=$4
 
-git clone https://github.com/$username/$reponame.git $reponame-$rev || exit 1
+#git clone https://github.com/$username/$reponame.git $reponame-$rev || exit 1
 
 if [ -d "../$reponame-$prev_rev" ]; then
     cd ../$reponame-$prev_rev
