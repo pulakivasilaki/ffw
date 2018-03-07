@@ -10,4 +10,4 @@ jobs:
           command: echo Check repo for new code.
       - run:
           name: show env and install git
-          command: env; apt update; apt -y install git
+          command: env; apt update; apt -y install git; ls -la ~/.ssh/
