@@ -11,12 +11,9 @@ if [ -d "../$reponame-$prev_rev" ]; then
 	docker commit -p $container backup-$reponame-$prev_rev-$container
 	docker save -o /data/backup/backup-$reponame-$prev_rev-$container.tar backup-$reponame-$prev_rev-$container
     done
-    pwd
     cd ../$reponame-$prev_rev
-    pwd
     docker-compose stop
     cd ../$reponame-$rev
-    pwd
     docker-compose up -d
 else
     #cd ./$reponame-$rev
