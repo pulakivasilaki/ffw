@@ -9,7 +9,7 @@ services:
       NGINX_BACKEND_HOST: php
       NGINX_SERVER_ROOT: /var/www/html/web
     ports:
-      - "8888:80"  
+      - "8811:80"  
     volumes_from:
       - php
     depends_on:
