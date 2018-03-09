@@ -26,5 +26,5 @@ jobs:
                     cd /data/$CIRCLE_PROJECT_REPONAME
                     TAG=1.0.$CIRCLE_BUILD_NUM
                     docker build -t ffw:$TAG .
-		    docker login -u $docker_user -p $docker_pass
+                    docker login -u $docker_user -p $docker_pass
                     docker push ffw:$TAG
