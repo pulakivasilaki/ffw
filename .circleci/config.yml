@@ -28,4 +28,5 @@ jobs:
                     docker build -t pulakivasilaki/ffw:$TAG .
                     docker login -u $docker_user -p $docker_pass
                     docker push pulakivasilaki/ffw:$TAG
-
+                    apt -y install ssh
+                    ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 'cd /data; git clone https://github.com/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'.git '$CIRCLE_PROJECT_REPONAME'; cd '$CIRCLE_PROJECT_REPONAME'; sed -i 's/[TAG]/$TAG/';
