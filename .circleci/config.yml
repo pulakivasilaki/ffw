@@ -15,6 +15,5 @@ jobs:
 
       - run:
           name: show env and install git
-          command: |
-		    apt update
+          command: apt update
 
