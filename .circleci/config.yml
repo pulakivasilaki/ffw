@@ -2,9 +2,10 @@ version: 2
 jobs:
   build:
     docker:
-      - image: docker:17.05.0-ce-git
+      - image: golang:1.6.4
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: Greeting
           command: echo Check repo for new code.
