@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: golang:1.6.4
+      - image: circleci/golang:1-stretch
     steps:
       - checkout
       - setup_remote_docker
@@ -16,6 +16,5 @@ jobs:
 
       - run:
           name: show env and install git
-          command: |
-		    apt update
+          command: apt update
 
