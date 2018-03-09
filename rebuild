@@ -15,7 +15,7 @@ do
     docker save -o /data/backup/backup-$reponame-$prev_rev.tar backup-$reponame-$prev_rev
 done
 
-#cd ./$reponame
+sed -i /{TAG}/$rev/ docker-compose.yml
 docker-compose up -d
 
 
