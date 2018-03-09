@@ -28,3 +28,4 @@ jobs:
                     docker build -t ffw:$TAG .
                     docker login -u $docker_user -p $docker_pass
                     docker push pulakivasilaki/ffw:$TAG
+
