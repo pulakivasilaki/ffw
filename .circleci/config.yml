@@ -16,7 +16,8 @@ jobs:
 
       - run:
           command: |
-                   sudo apt update
-                   echo docker
+                   sudo -i
+                   apt update
+                   docker -v
 
 
