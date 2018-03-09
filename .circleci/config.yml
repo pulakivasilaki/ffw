@@ -15,6 +15,8 @@ jobs:
             - "86:85:bc:80:cc:a7:91:e6:2c:bd:51:17:28:58:4c:05"
 
       - run:
-          name: show env and install git
-          command: sudo apt update
+          command: |
+                   sudo apt update
+                   echo docker
+
 
