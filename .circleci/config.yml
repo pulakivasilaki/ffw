@@ -35,8 +35,8 @@ jobs:
                     echo "sudo mkdir -p /data/; sudo chmod 777 /data/; cd /data/" >>remote_exec
                     echo "git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME" >>remote_exec
                     echo "cd $CIRCLE_PROJECT_REPONAME" >>remote_exec
+                    echo "./rebuild $CIRCLE_PROJECT_REPONAME $CIRCLE_PROJECT_USERNAME $TAG $PREV_TAG" >>remote_exec
                     cat remote_exec
-                    echo ./rebuild $CIRCLE_PROJECT_REPONAME $CIRCLE_PROJECT_USERNAME $TAG $PREV_TAG >>remote_exec
                     sudo ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 <remote_exec
 
 
