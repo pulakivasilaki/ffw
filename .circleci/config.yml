@@ -24,20 +24,10 @@ jobs:
                     sudo /usr/local/bin/docker-compose -v
                     sudo mkdir /data; sudo chmod 777 /data/; cd /data
                     git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME
-                    cd /data/$CIRCLE_PROJECT_REPONAME
-                    PREV_TAG=1.0.$CIRCLE_PREVIOUS_BUILD_NUM
+                    cd $CIRCLE_PROJECT_REPONAME
                     TAG=1.0.$CIRCLE_BUILD_NUM
                     docker build -t pulakivasilaki/ffw:$TAG .
                     docker login -u $docker_user -p $docker_pass
                     docker push pulakivasilaki/ffw:$TAG
-                    sudo apt -y install ssh
-                    echo "#!/bin/bash -x" >remote_exec
-                    echo "sudo mkdir -p /data/; sudo chmod 777 /data/; cd /data/" >>remote_exec
-                    echo "git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME" >>remote_exec
-                    echo "cd $CIRCLE_PROJECT_REPONAME" >>remote_exec
-                    echo "./rebuild $CIRCLE_PROJECT_REPONAME $CIRCLE_PROJECT_USERNAME $TAG $PREV_TAG" >>remote_exec
-                    echo "cd ../; rm -rf $CIRCLE_PROJECT_REPONAME" >>remote_exec
-                    cat remote_exec
-                    sudo ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 <remote_exec
-
-
+                    cd /data/$CIRCLE_PROJECT_REPONAME
+                    /usr/local/bin/docker-compose
