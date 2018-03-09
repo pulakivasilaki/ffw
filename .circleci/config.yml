@@ -30,5 +30,5 @@ jobs:
                     docker login -u $docker_user -p $docker_pass
                     docker push pulakivasilaki/ffw:$TAG
                     sudo apt -y install ssh
-                    sudo ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 'cd /data; git clone https://github.com/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'.git '$CIRCLE_PROJECT_REPONAME-$TAG'; cd '$CIRCLE_PROJECT_REPONAME-$TAG'; sed -i ''s/\[TAG\]/'$TAG'/'' docker-compose.yml;'
+                    sudo ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 'cd /data; git clone https://github.com/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'.git '$CIRCLE_PROJECT_REPONAME-$TAG'; cd '$CIRCLE_PROJECT_REPONAME-$TAG'; sed -i ''s/{TAG}/'$TAG'/'' docker-compose.yml;'
 

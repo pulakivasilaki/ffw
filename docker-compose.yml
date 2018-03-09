@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
   nginx:
-    image: pulakivasilaki/ffw:[TAG]
+    image: pulakivasilaki/ffw:{TAG}
     environment:
       NGINX_STATIC_CONTENT_OPEN_FILE_CACHE: "off"
       NGINX_ERROR_LOG_LEVEL: debug
