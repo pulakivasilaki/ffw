@@ -1,20 +1,12 @@
 #!/bin/bash
 reponame=$1
 username=$2
-rev=$3
-prev_rev=$4
+ver=$3
 
-containers=`docker ps -a | grep $username/$reponame:$prev_rev | awk '{print $1}'`
-mkdir -p /data/backup/
-
-for container in $containers
-do
-    id=`echo $container | awk -F\; '{print $1}'`
-    name=`echo $container | awk -F\; '{print $2}'`
-    docker commit -p $id backup-$reponame-$prev_rev
-    docker save -o /data/backup/backup-$reponame-$prev_rev.tar backup-$reponame-$prev_rev
-done
-
-sed -i 's/{TAG}/'$rev'/' docker-compose.yml
+mkdir -p /data
+cd /data
+git clone https://github.com/$username/$reponame.git $reponame
+cd $reponame
+sed -i 's/{TAG}/'$ver'/'
 docker-compose up -d
 

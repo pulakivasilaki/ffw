@@ -29,5 +29,9 @@ jobs:
                     docker build -t pulakivasilaki/ffw:$TAG .
                     docker login -u $docker_user -p $docker_pass
                     docker push pulakivasilaki/ffw:$TAG
-                    cd /data/$CIRCLE_PROJECT_REPONAME
-                    /usr/local/bin/docker-compose
+                    sudo apt -y install ssh
+                    echo "#!/bin/bash -x" >remote_exec
+                    echo "cd /data/$CIRCLE_PROJECT_REPONAME" >>remote_exec
+                    echo "./rebuild $CIRCLE_PROJECT_REPONAME $CIRCLE_PROJECT_USERNAME $TAG $PREV_TAG" >>remote_exec
+                    cat remote_exec
+                    sudo ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 <remote_exec
