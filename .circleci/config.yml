@@ -21,7 +21,7 @@ jobs:
                     sudo curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
                     sudo chmod +x /usr/local/bin/docker-compose
                     sudo /usr/local/bin/docker-compose -v
-                    sudo mkdir /data; chmod 777 /data/; cd /data
+                    sudo mkdir /data; sudo chmod 777 /data/; cd /data
                     git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME
                     cd /data/$CIRCLE_PROJECT_REPONAME
                     TAG=1.0.$CIRCLE_BUILD_NUM
