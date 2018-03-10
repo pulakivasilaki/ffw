@@ -16,7 +16,7 @@ services:
       - php
 
   php:
-    image: pulakivasilaki/ffw:${TAG}
+    image: pulakivasilaki/ffw:{TAG}
     restart: always
     environment:
       PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
