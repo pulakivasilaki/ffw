@@ -4,9 +4,8 @@ username=$2
 ver=$3
 
 mkdir -p /data
-cd /data
-git clone https://github.com/$username/$reponame.git $reponame
-cd $reponame
+git clone -C /data/ https://github.com/$username/$reponame.git $reponame
+cd /data/$reponame
 sed -i 's/{TAG}/'$ver'/'
 docker-compose up -d
 
