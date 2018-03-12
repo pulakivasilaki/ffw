@@ -11,7 +11,7 @@ services:
     ports:
       - "8888:80"  
     volumes_from:
-      - php:
+      - php:/var/www/html
     depends_on:
       - php
 
