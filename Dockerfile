@@ -1,5 +1,5 @@
 FROM wodby/wordpress-php:7.2-3.3.1
-RUN apk add --update
-RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/local/bin/ --filename=composer
+COPY /usr/local/bin/composer /usr/local/bin/composer
+RUN /usr/local/bin/composer -v
 COPY --chown=www-data:www-data . /var/www/html
 COPY --chown=www-data:www-data wp-config.template.php /var/www/html/wp-config.php
