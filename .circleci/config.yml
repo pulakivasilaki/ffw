@@ -16,17 +16,17 @@ jobs:
 
       - run:
           command: |
-                    sudo apt update
-                    sudo docker -v
-                    sudo curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-                    sudo chmod +x /usr/local/bin/docker-compose
-                    sudo /usr/local/bin/docker-compose -v
+                    apt update
+                    docker -v
+                    curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+                    chmod +x /usr/local/bin/docker-compose
+                    /usr/local/bin/docker-compose -v
                     git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME
                     cd $CIRCLE_PROJECT_REPONAME
                     TAG=1.0.$CIRCLE_BUILD_NUM
-                    sudo docker build -t pulakivasilaki/ffw:$TAG .
-                    sudo docker login -u $docker_user -p $docker_pass
-                    sudo docker push pulakivasilaki/ffw:$TAG
+                    docker build -t pulakivasilaki/ffw:$TAG .
+                    docker login -u $docker_user -p $docker_pass
+                    docker push pulakivasilaki/ffw:$TAG
                     echo "#!/bin/bash" >remote_exec
                     echo "git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME" >>remote_exec
                     echo "cd $CIRCLE_PROJECT_REPONAME" >>remote_exec
