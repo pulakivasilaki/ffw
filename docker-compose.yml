@@ -11,7 +11,7 @@ services:
     ports:
       - "8888:80"  
     volumes_from:
-      - php
+      - php:
     depends_on:
       - php
 
@@ -25,6 +25,8 @@ services:
       DB_USER: wordpress
       DB_PASSWORD: wordpress
       DB_HOST: mariadb
+    volumes:
+      - /var/www/html:/var/www/html
 
   mariadb:
     image: wodby/mariadb:10.2-3.0.2
