@@ -7,14 +7,15 @@ jobs:
       - checkout
       - run: git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME
       - run: sudo apt update
-      - run: sudo apt -y install php
+      - run: sudo apt -y install php rsync
       - run: php -r "readfile('http://getcomposer.org/installer');" | php -- --filename=composer
       - run: chmod +x composer
       - run: ./composer install
       - run: env
+      - run: find /var/www
 
       - setup_remote_docker
-      - run: find /var/www
+      - run: find / -path */var/www*
       - run: docker build -t pulakivasilaki/ffw:$TAG .
       - add_ssh_keys:  # add key from CircleCI account based on fingerprint
           fingerprints:
