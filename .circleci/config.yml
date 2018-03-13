@@ -6,6 +6,7 @@ jobs:
     steps:
       - checkout
       - run: git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME
+      - run: pwd; ls -la
       - setup_remote_docker
       - run:
           name: Greeting
