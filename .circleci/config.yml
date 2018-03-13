@@ -12,9 +12,12 @@ jobs:
       - run: chmod +x composer
       - run: ./composer install
       - run: env
-      - run: find /var/www
+      - run: pwd
+      - run: find / -path */var/www*
 
       - setup_remote_docker
+      - run: env
+      - run: pwd
       - run: find / -path */var/www*
       - run: docker build -t pulakivasilaki/ffw:$TAG .
       - add_ssh_keys:  # add key from CircleCI account based on fingerprint
