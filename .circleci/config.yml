@@ -14,7 +14,7 @@ jobs:
       - run: env
 
       - setup_remote_docker
-      - run: env
+      - run: find /var/www
       - run: docker build -t pulakivasilaki/ffw:$TAG .
       - add_ssh_keys:  # add key from CircleCI account based on fingerprint
           fingerprints:
