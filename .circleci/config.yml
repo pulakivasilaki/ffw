@@ -4,6 +4,10 @@ jobs:
     docker:
       - image: circleci/golang:1-stretch
     steps:
+      - add_ssh_keys:  # add key from CircleCI account based on fingerprint
+          fingerprints:
+            - "86:85:bc:80:cc:a7:91:e6:2c:bd:51:17:28:58:4c:05"
+
       - checkout
       - run: git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME
       - run: sudo apt update
@@ -19,9 +23,6 @@ jobs:
                docker build -t pulakivasilaki/ffw:$TAG .
 
       - setup_remote_docker
-      - add_ssh_keys:  # add key from CircleCI account based on fingerprint
-          fingerprints:
-            - "86:85:bc:80:cc:a7:91:e6:2c:bd:51:17:28:58:4c:05"
 
       - run:
           command: |
