@@ -6,8 +6,13 @@ jobs:
     steps:
       - checkout
       - run: git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME
-      - run: pwd
+      - run: sudo apt update
+      - run: sudo apt -y install php
+      - run: sudo curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+      - run: sudo chmod +x /usr/local/bin/docker-compose
+      - run: /usr/local/bin/docker-compose -v
       - run: ls -la
+
       - setup_remote_docker
       - run:
           name: Greeting
