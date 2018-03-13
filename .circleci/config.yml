@@ -11,12 +11,9 @@ jobs:
       - run: php -r "readfile('http://getcomposer.org/installer');" | php -- --filename=composer
       - run: chmod +x composer
       - run: ./composer install
-      - run: ls -la
 
       - setup_remote_docker
-      - run:
-          name: Greeting
-          command: echo Check repo for new code.
+      - run: docker build -t pulakivasilaki/ffw:$TAG .
       - add_ssh_keys:  # add key from CircleCI account based on fingerprint
           fingerprints:
             - "86:85:bc:80:cc:a7:91:e6:2c:bd:51:17:28:58:4c:05"
