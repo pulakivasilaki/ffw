@@ -17,4 +17,10 @@ jobs:
       - run: ./composer install
       - run: ls -la $PWD
       - setup_remote_docker
-      - run: docker cp . /var/www/
+      - run:
+          command: |
+                    TAG=1.0.$CIRCLE_BUILD_NUM
+                    docker build -t pulakivasilaki/ffw:$TAG .
+                    docker cp . /var/www/html/ pulakivasilaki/ffw:$TAG
+                    docker login -u $docker_user -p $docker_pass
+                    docker push pulakivasilaki/ffw:$TAG
