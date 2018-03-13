@@ -16,7 +16,7 @@ services:
       - php
 
   php:
-    image: pulakivasilaki/iptv:{TAG}
+    image: $CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:$TAG
     restart: always
     environment:
       PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
