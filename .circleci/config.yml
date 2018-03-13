@@ -9,7 +9,7 @@ jobs:
             - "86:85:bc:80:cc:a7:91:e6:2c:bd:51:17:28:58:4c:05"
 
       - checkout
-      - run: git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME
+      - run: git clone $CIRCLE_REPOSITORY_URL $CIRCLE_PROJECT_REPONAME
       - run: sudo apt update
       - run: sudo apt -y install php rsync
       - run: php -r "readfile('http://getcomposer.org/installer');" | php -- --filename=composer
