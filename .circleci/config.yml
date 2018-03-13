@@ -17,8 +17,4 @@ jobs:
       - run: ./composer install
       - run: ls -la $PWD
       - setup_remote_docker
-
-      - run:
-          command: |
-                    sudo apt update
-                    docker -v
+      - run: docker cp . /var/www/
