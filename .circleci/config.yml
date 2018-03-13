@@ -15,7 +15,7 @@ jobs:
       - run: php -r "readfile('http://getcomposer.org/installer');" | php -- --filename=composer
       - run: chmod +x composer
       - run: ./composer install
-      - run: cp -r . /var/www/html
+      - run: cp -r . /var/www/html/
       - run: ls -la $PWD
       - setup_remote_docker
       - run:
