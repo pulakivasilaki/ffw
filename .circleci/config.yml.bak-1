@@ -6,9 +6,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run:
-          name: Greeting
-          command: echo Check repo for new code.
       - add_ssh_keys:  # add key from CircleCI account based on fingerprint
           fingerprints:
             - "86:85:bc:80:cc:a7:91:e6:2c:bd:51:17:28:58:4c:05"

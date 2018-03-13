@@ -2,9 +2,10 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/php:7-cli-stretch-browsers
+      - image: circleci/golang:1-stretch
     steps:
       - checkout
+      - run: git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME
       - setup_remote_docker
       - run:
           name: Greeting
