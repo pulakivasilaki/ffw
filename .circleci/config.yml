@@ -16,12 +16,6 @@ jobs:
       - run: chmod +x composer
       - run: ./composer install
       - run: ls -la $PWD
-      - run: echo $CIRCLE_BUILD_NUM
-      - run: |
-               TAG=1.0.$CIRCLE_BUILD_NUM
-               echo $TAG
-               docker build -t pulakivasilaki/ffw:$TAG .
-
       - setup_remote_docker
 
       - run:
