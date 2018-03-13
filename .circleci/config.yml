@@ -20,7 +20,7 @@ jobs:
               docker build -t $CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:$TAG .
               docker login -u $docker_user -p $docker_pass
               docker push $CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:$TAG
-              sed -i 's/\$TAG/$TAG/;s/\$CIRCLE_USERNAME/$CIRCLE_USERNAME' docker-compose.yml
+              sed -i 's/\$TAG/$TAG/;s/\$CIRCLE_USERNAME/$CIRCLE_USERNAME/' docker-compose.yml
               sed -i 's/\$CIRCLE_PROJECT_REPONAME/$CIRCLE_PROJECT_REPONAME/' docker-compose.yml
               cat docker-compose.yml
               sudo scp -P20009 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 ./docker-compose.yml root@95.65.17.14:~/
