@@ -4,29 +4,22 @@ jobs:
     docker:
       - image: circleci/golang:1-stretch
     steps:
-      - add_ssh_keys:  # add key from CircleCI account based on fingerprint
+      - add_ssh_keys:
           fingerprints:
             - "86:85:bc:80:cc:a7:91:e6:2c:bd:51:17:28:58:4c:05"
 
       - checkout
-      - run: git clone $CIRCLE_REPOSITORY_URL $CIRCLE_PROJECT_REPONAME
-      - run: sudo apt update
-      - run: sudo apt -y install php rsync
-      - run: php -r "readfile('http://getcomposer.org/installer');" | php -- --filename=composer
-      - run: chmod +x composer
-      - run: ./composer install
-      - run: sudo cp -r . /var/www/html/
+      - run: sudo apt update; sudo apt -y install php scp
+      - run: php -r "readfile('http://getcomposer.org/installer');" | sudo php -- --install-dir=/usr/local/bin --filename=composer
+      - run: sudo chmod +x /usr/local/bin/composer
+      - run: /usr/local/bin/composer install
+
       - setup_remote_docker
-      - run:
-          command: |
-                    TAG=1.0.$CIRCLE_BUILD_NUM
-                    docker build -t pulakivasilaki/ffw:$TAG .
-                    docker login -u $docker_user -p $docker_pass
-                    docker push pulakivasilaki/ffw:$TAG
-                    echo "#!/bin/bash" >remote_exec
-                    echo "git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME" >>remote_exec
-                    echo "cd $CIRCLE_PROJECT_REPONAME" >>remote_exec
-                    echo "sed -i 's/{TAG}/$TAG/' docker-compose.yml" >>remote_exec
-                    echo "docker-compose up -d" >>remote_exec
-                    echo "cd ../; rm -rf $CIRCLE_PROJECT_REPONAME" >>remote_exec
-                    sudo ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 <remote_exec
+      - run: |
+              TAG=0.0.$CIRCLE_BUILD_NUM
+              docker build -t $CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:$TAG .
+              docker login -u $docker_user -p $docker_pass
+              docker push $CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:$TAG
+              sed -i 's/{TAG}/$TAG/' docker-compose.yml
+              sudo scp -P20009 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14:~/
+              sudo ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 "docker-compose up -d"
