@@ -26,12 +26,10 @@ jobs:
                     php -r "readfile('http://getcomposer.org/installer');" | php -- --filename=composer
                     chmod +x composer
                     ./composer install
-                    pwd; ls -la
                     TAG=1.0.$CIRCLE_BUILD_NUM
                     docker build -t pulakivasilaki/ffw:$TAG .
                     docker login -u $docker_user -p $docker_pass
                     docker push pulakivasilaki/ffw:$TAG
-                    exit
                     echo "#!/bin/bash" >remote_exec
                     echo "git clone https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $CIRCLE_PROJECT_REPONAME" >>remote_exec
                     echo "cd $CIRCLE_PROJECT_REPONAME" >>remote_exec
