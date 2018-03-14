@@ -9,5 +9,6 @@ jobs:
             - "86:85:bc:80:cc:a7:91:e6:2c:bd:51:17:28:58:4c:05"
 
       - checkout
-            - run: ls -la; pwd
+      - run: ls -la
+      - run: pwd
 
