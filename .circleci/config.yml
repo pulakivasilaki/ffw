@@ -9,5 +9,7 @@ jobs:
             - "86:85:bc:80:cc:a7:91:e6:2c:bd:51:17:28:58:4c:05"
 
       - checkout
-      - run: php -v
+      - run: php -r "readfile('http://getcomposer.org/installer');" | sudo php -- --install-dir=/usr/local/bin --filename=composer
+      - run: sudo chmod +x /usr/local/bin/composer
+      - run: /usr/local/bin/composer install
 
