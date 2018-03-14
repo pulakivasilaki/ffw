@@ -1,0 +1,37 @@
+version: '2.1'
+
+services:
+  nginx:
+    image: wodby/wordpress-nginx:4-1.13-3.0.2
+    environment:
+      NGINX_STATIC_CONTENT_OPEN_FILE_CACHE: "off"
+      NGINX_ERROR_LOG_LEVEL: debug
+      NGINX_BACKEND_HOST: php
+      NGINX_SERVER_ROOT: /var/www/html/web
+    ports:
+      - "8008:80"  
+    volumes_from:
+      - php
+    depends_on:
+      - php
+
+  php:
+    image: ${CIRCLE_USERNAME}/${CIRCLE_PROJECT_REPONAME}:${TAG}
+    restart: always
+    environment:
+      PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
+      PHP_FPM_CLEAR_ENV: "no"
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASS}
+      DB_HOST: mariadb
+    volumes:
+      - /var/www/html
+
+  mariadb:
+    image: wodby/mariadb:10.2-3.0.2
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
