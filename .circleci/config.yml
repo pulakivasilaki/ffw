@@ -18,12 +18,16 @@ jobs:
       - setup_remote_docker
       - run: |
               TAG=0.0.$CIRCLE_BUILD_NUM
-              export TAG
-              export >.env
               docker build -t $CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:$TAG .
               docker login -u $docker_user -p $docker_pass
               docker push $CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:$TAG
-              # sed -i 's/$TAG/'$TAG'/;s/$CIRCLE_USERNAME/'$CIRCLE_USERNAME'/' docker-compose.yml
-              # sed -i 's/$CIRCLE_PROJECT_REPONAME/'$CIRCLE_PROJECT_REPONAME'/' docker-compose.yml
+              echo "TAG=$TAG" >.env
+              echo "CIRCLE_USERNAME=$CIRCLE_USERNAME" >>.env
+              echo "CIRCLE_PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME" >>.env
+              echo "CIRCLE_PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME" >>.env
+              echo "DB_NAME=$DB_NAME" >>.env
+              echo "DB_USER=$DB_USER" >>.env
+              echo "DB_PASS=$DB_PASS" >>.env
+              echo "DB_HOST=$DB_HOST" >>.env
               sudo scp -P20009 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 docker-compose.yml .env root@95.65.17.14:~/
               sudo ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 "docker-compose up -d"
