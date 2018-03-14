@@ -13,7 +13,6 @@ jobs:
       - run: php -r "readfile('http://getcomposer.org/installer');" | sudo php -- --install-dir=/usr/local/bin --filename=composer
       - run: sudo chmod +x /usr/local/bin/composer
       - run: /usr/local/bin/composer install
-      - run: cat $BASH_ENV
 
       - setup_remote_docker
       - run: |
