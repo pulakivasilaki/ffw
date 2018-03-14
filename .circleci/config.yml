@@ -27,6 +27,5 @@ jobs:
               echo "DB_NAME=$DB_NAME" >>.env
               echo "DB_USER=$DB_USER" >>.env
               echo "DB_PASS=$DB_PASS" >>.env
-              echo "DB_HOST=$DB_HOST" >>.env
               sudo scp -P20009 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 docker-compose.yml .env root@95.65.17.14:~/
               sudo ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 "docker-compose up -d"
