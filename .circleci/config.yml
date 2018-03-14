@@ -1,18 +1,32 @@
 version: 2
 jobs:
   build:
-    branches:
-        only:
-        - php
-
     docker:
-      - image: circleci/php:7.1.5-browsers
-      working_directory: ~/repo
-
+      - image: circleci/golang:1-stretch
     steps:
       - add_ssh_keys:
           fingerprints:
             - "86:85:bc:80:cc:a7:91:e6:2c:bd:51:17:28:58:4c:05"
 
       - checkout
-      - run: composer install
+      - run: sudo apt update; sudo apt -y install php ssh
+      - run: php -r "readfile('http://getcomposer.org/installer');" | sudo php -- --install-dir=/usr/local/bin --filename=composer
+      - run: sudo chmod +x /usr/local/bin/composer
+      - run: /usr/local/bin/composer install
+
+      - setup_remote_docker
+      - run: |
+              TAG=0.0.$CIRCLE_BUILD_NUM
+              docker build -t $CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:$TAG .
+              docker login -u $docker_user -p $docker_pass
+              docker push $CIRCLE_USERNAME/$CIRCLE_PROJECT_REPONAME:$TAG
+              echo "TAG=$TAG" >.env
+              echo "CIRCLE_USERNAME=$CIRCLE_USERNAME" >>.env
+              echo "CIRCLE_PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME" >>.env
+              echo "CIRCLE_PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME" >>.env
+              echo "DB_NAME=$DB_NAME" >>.env
+              echo "DB_USER=$DB_USER" >>.env
+              echo "DB_PASS=$DB_PASS" >>.env
+              echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >>.env
+              sudo scp -P20009 -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 docker-compose.yml .env root@95.65.17.14:~/
+              sudo ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_8685bc80cca791e62cbd511728584c05 root@95.65.17.14 -p 20009 "docker-compose up -d; rm -f .env"
