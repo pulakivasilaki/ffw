@@ -1,14 +1,8 @@
 version: 2
 jobs:
   build:
-    branches:
-        only:
-        - php
-
     docker:
       - image: circleci/php:7.1.5-browsers
-      working_directory: ~/repo
-
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -16,3 +10,7 @@ jobs:
 
       - checkout
       - run: composer install
+
+      - setup_remote_docker
+      - run: |
+              TAG=0.0.$CIRCLE_BUILD_NUM
